@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { X, Coins, Star, Zap } from 'lucide-react';
 
@@ -7,7 +7,28 @@ interface ShopProps {
 }
 
 export const Shop: React.FC<ShopProps> = ({ onClose }) => {
-  const { shopItems, coins, purchaseItem, equipItem } = useGameStore();
+  const { shopItems, coins, purchaseItem, equipItem, updateShopItems } = useGameStore();
+
+  // Load saved data from localStorage on mount
+  useEffect(() => {
+    const savedCoins = localStorage.getItem('whopmetry-coins');
+    const savedShopItems = localStorage.getItem('whopmetry-shop');
+    
+    if (savedCoins) {
+      useGameStore.getState().updateCoins(parseInt(savedCoins) - coins);
+    }
+    
+    if (savedShopItems) {
+      const parsedItems = JSON.parse(savedShopItems);
+      updateShopItems(parsedItems);
+    }
+  }, []);
+
+  // Save data to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('whopmetry-coins', coins.toString());
+    localStorage.setItem('whopmetry-shop', JSON.stringify(shopItems));
+  }, [coins, shopItems]);
 
   const handlePurchase = (itemId: string) => {
     purchaseItem(itemId);

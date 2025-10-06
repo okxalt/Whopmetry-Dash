@@ -1,6 +1,6 @@
 # Whopmetry Dash 🎮
 
-A Geometry Dash-inspired endless runner game built for Whop with integrated monetization features. Jump, dodge obstacles, collect coins, and unlock new skins and powerups!
+A Geometry Dash-inspired endless runner game! Jump, dodge obstacles, collect coins, and unlock new skins and powerups. Built with React, TypeScript, and Canvas for smooth gameplay.
 
 ![Game Preview](https://via.placeholder.com/800x400/667eea/ffffff?text=Whopmetry+Dash+Game)
 
@@ -19,12 +19,11 @@ A Geometry Dash-inspired endless runner game built for Whop with integrated mone
 - **Procedural Audio**: Generated sound effects and background music
 - **Responsive Design**: Works on desktop and mobile devices
 
-### Monetization & Whop Integration
+### Shop & Progression
 - **In-Game Shop**: Purchase skins, powerups, and cosmetics with earned coins
-- **Premium Features**: Special content for Whop premium users
-- **Leaderboards**: Compete with other players globally
-- **Progress Tracking**: Sync your progress with Whop API
-- **Analytics**: Track player behavior and engagement
+- **Local Storage**: Your progress and purchases are saved locally
+- **Unlock System**: Earn coins to unlock new content
+- **Skin System**: Multiple character skins to choose from
 
 ## 🛠️ Tech Stack
 
@@ -33,8 +32,9 @@ A Geometry Dash-inspired endless runner game built for Whop with integrated mone
 - **State Management**: Zustand
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
-- **Deployment**: Vercel
+- **Deployment**: Vercel/Netlify/GitHub Pages
 - **Audio**: Web Audio API
+- **Storage**: Local Storage
 
 ## 🚀 Quick Start
 
@@ -55,15 +55,16 @@ A Geometry Dash-inspired endless runner game built for Whop with integrated mone
    npm install
    ```
 
-3. **Set up environment variables**
+3. **Optional: Set up environment variables**
    ```bash
    cp .env.example .env
    ```
    
-   Edit `.env` with your Whop API credentials:
+   Edit `.env` with your game settings:
    ```env
-   VITE_WHOP_API_BASE=https://api.whop.com/api/v2
-   VITE_WHOP_API_KEY=your_whop_api_key_here
+   VITE_GAME_TITLE=Whopmetry Dash
+   VITE_DEFAULT_DIFFICULTY=normal
+   VITE_MAX_LIVES=3
    ```
 
 4. **Start development server**
@@ -104,10 +105,11 @@ A Geometry Dash-inspired endless runner game built for Whop with integrated mone
 - **Cosmetics**: Visual effects
   - Particle Trail (75 coins)
 
-### Premium Features
-- **Exclusive Skins**: Special skins for Whop premium users
-- **Double Coins**: Earn 2x coins for premium users
-- **Ad-Free Experience**: No interruptions for premium users
+### Shop Features
+- **Multiple Skins**: Unlock different character appearances
+- **Powerups**: Temporary gameplay enhancements
+- **Cosmetics**: Visual effects and particle trails
+- **Progressive Unlocks**: More items unlock as you play
 
 ## 🔧 Configuration
 
@@ -117,13 +119,12 @@ A Geometry Dash-inspired endless runner game built for Whop with integrated mone
 - **Difficulty**: Easy, Normal, Hard, Expert
 - **Graphics**: Low, Medium, High quality settings
 
-### Whop API Integration
-The game integrates with Whop API for:
-- User authentication and data sync
-- Purchase processing
-- Leaderboard management
-- Analytics tracking
-- Premium feature validation
+### Local Storage
+The game uses browser local storage for:
+- Saving your coin balance
+- Remembering unlocked shop items
+- Storing equipped skins
+- Progress persistence across sessions
 
 ## 📱 Mobile Support
 

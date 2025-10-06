@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GameState, Player, Obstacle, Collectible, Particle, GameSettings, ShopItem, WhopUser } from '../types/game';
+import { GameState, Player, Obstacle, Collectible, Particle, GameSettings, ShopItem } from '../types/game';
 
 interface GameStore extends GameState {
   player: Player;
@@ -8,7 +8,6 @@ interface GameStore extends GameState {
   particles: Particle[];
   settings: GameSettings;
   shopItems: ShopItem[];
-  whopUser: WhopUser | null;
   
   // Actions
   setPlaying: (playing: boolean) => void;
@@ -47,9 +46,8 @@ interface GameStore extends GameState {
   // Shop
   purchaseItem: (itemId: string) => void;
   equipItem: (itemId: string) => void;
+  updateShopItems: (items: ShopItem[]) => void;
   
-  // Whop integration
-  setWhopUser: (user: WhopUser | null) => void;
   
   // Game control
   resetGame: () => void;
@@ -135,7 +133,6 @@ export const useGameStore = create<GameStore>((set) => ({
   particles: [],
   settings: initialSettings,
   shopItems: initialShopItems,
-  whopUser: null,
   
   // Actions
   setPlaying: (playing) => set({ isPlaying: playing }),
@@ -234,8 +231,8 @@ export const useGameStore = create<GameStore>((set) => ({
     return state;
   }),
   
-  // Whop integration
-  setWhopUser: (user) => set({ whopUser: user }),
+  updateShopItems: (items) => set({ shopItems: items }),
+  
   
   // Game control
   resetGame: () => set({

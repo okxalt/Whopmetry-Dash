@@ -16,7 +16,8 @@
     }
   ],
   "env": {
-    "VITE_WHOP_API_BASE": "@whop_api_base",
-    "VITE_WHOP_API_KEY": "@whop_api_key"
+    "VITE_GAME_TITLE": "Whopmetry Dash",
+    "VITE_DEFAULT_DIFFICULTY": "normal",
+    "VITE_MAX_LIVES": "3"
   }
 }

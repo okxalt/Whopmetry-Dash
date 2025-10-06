@@ -73,12 +73,3 @@ export interface ShopItem {
   unlocked: boolean;
   equipped: boolean;
 }
-
-export interface WhopUser {
-  id: string;
-  username: string;
-  coins: number;
-  premium: boolean;
-  unlockedItems: string[];
-  equippedSkin: string;
-}
