@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, RotateCcw, Home, Settings } from 'lucide-react';
+import { Play, RotateCcw, Home } from 'lucide-react';
 
 interface PauseMenuProps {
   onResume: () => void;

@@ -1,5 +1,6 @@
 import { useGameStore } from '../store/gameStore';
 import { Vector2D, Obstacle, Collectible, Particle } from '../types/game';
+import { audioManager } from '../utils/audioManager';
 
 export class GameEngine {
   private canvas: HTMLCanvasElement;
@@ -21,6 +22,16 @@ export class GameEngine {
     this.ctx = ctx;
     
     this.setupEventListeners();
+    this.initializeAudio();
+  }
+
+  private async initializeAudio() {
+    try {
+      await audioManager.initialize();
+      await audioManager.loadSounds();
+    } catch (error) {
+      console.error('Failed to initialize audio:', error);
+    }
   }
 
   private setupEventListeners() {
@@ -55,11 +66,12 @@ export class GameEngine {
         velocity: { ...player.velocity, y: this.jumpForce },
         isJumping: true
       });
+      audioManager.playSound('jump');
     }
   }
 
   private updatePlayer(deltaTime: number) {
-    const { player, speed, updatePlayer, updateScore, updateLives, endGame } = useGameStore.getState();
+    const { player, speed, updatePlayer, updateScore } = useGameStore.getState();
     
     if (player.isDead) return;
 
@@ -105,6 +117,8 @@ export class GameEngine {
 
   private handlePlayerDeath() {
     const { lives, updateLives, endGame } = useGameStore.getState();
+    
+    audioManager.playSound('death');
     
     if (lives > 1) {
       updateLives(-1);
@@ -162,15 +176,13 @@ export class GameEngine {
     });
   }
 
-  private updateCollectibles(deltaTime: number) {
-    const { collectibles, updateCollectible, removeCollectible, speed, camera } = useGameStore.getState();
+  private updateCollectibles() {
+    const { collectibles, removeCollectible, camera } = useGameStore.getState();
     
     collectibles.forEach(collectible => {
       if (collectible.collected) return;
 
-      // Animate collectible
-      const animation = collectible.animation + deltaTime * 0.01;
-      updateCollectible(collectible.id, { animation });
+      // Animate collectible (animation is handled in rendering)
 
       // Remove collected items off screen
       if (collectible.position.x + collectible.size.x < camera.x - 100) {
@@ -202,7 +214,7 @@ export class GameEngine {
   }
 
   private spawnObstacle() {
-    const { addObstacle, level, speed } = useGameStore.getState();
+    const { addObstacle, level } = useGameStore.getState();
     const obstacleTypes: Array<'spike' | 'platform' | 'moving' | 'rotating'> = ['spike', 'platform'];
     
     // Add more obstacle types as level increases
@@ -261,7 +273,7 @@ export class GameEngine {
   }
 
   private checkCollisions() {
-    const { player, obstacles, collectibles, collectItem, addParticle } = useGameStore.getState();
+    const { player, obstacles, collectibles, collectItem } = useGameStore.getState();
     
     // Check obstacle collisions
     obstacles.forEach(obstacle => {
@@ -276,6 +288,7 @@ export class GameEngine {
       if (!collectible.collected && this.isColliding(player, collectible)) {
         collectItem(collectible.id);
         this.createCollectionParticles(collectible.position);
+        audioManager.playSound('coin');
       }
     });
   }
@@ -421,7 +434,7 @@ export class GameEngine {
     // Update game objects
     this.updatePlayer(deltaTime);
     this.updateObstacles(deltaTime);
-    this.updateCollectibles(deltaTime);
+    this.updateCollectibles();
     this.updateParticles(deltaTime);
     this.updateCamera();
 

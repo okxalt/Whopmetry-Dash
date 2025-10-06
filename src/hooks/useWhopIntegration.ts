@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { whopApi, convertWhopUserToGameUser, mockWhopUser, isWhopApiAvailable } from '../utils/whopApi';
-import { WhopUser } from '../types/game';
 
 export const useWhopIntegration = () => {
   const [isLoading, setIsLoading] = useState(true);

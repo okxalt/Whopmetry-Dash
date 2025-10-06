@@ -50,7 +50,6 @@ interface GameStore extends GameState {
   
   // Whop integration
   setWhopUser: (user: WhopUser | null) => void;
-  syncWithWhop: () => Promise<void>;
   
   // Game control
   resetGame: () => void;
@@ -73,6 +72,8 @@ const initialPlayer: Player = {
 const initialSettings: GameSettings = {
   soundEnabled: true,
   musicEnabled: true,
+  soundVolume: 0.5,
+  musicVolume: 0.3,
   difficulty: 'normal',
   graphics: 'high'
 };
@@ -116,7 +117,7 @@ const initialShopItems: ShopItem[] = [
   }
 ];
 
-export const useGameStore = create<GameStore>((set, get) => ({
+export const useGameStore = create<GameStore>((set) => ({
   // Initial state
   isPlaying: false,
   isPaused: false,
@@ -235,10 +236,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
   
   // Whop integration
   setWhopUser: (user) => set({ whopUser: user }),
-  syncWithWhop: async () => {
-    // This will be implemented when Whop API is integrated
-    console.log('Syncing with Whop API...');
-  },
   
   // Game control
   resetGame: () => set({

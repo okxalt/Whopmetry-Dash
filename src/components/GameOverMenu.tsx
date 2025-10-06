@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGameStore } from '../store/gameStore';
-import { RotateCcw, Home, Trophy, Share2 } from 'lucide-react';
+import { RotateCcw, Home, Share2 } from 'lucide-react';
 
 interface GameOverMenuProps {
   onRestart: () => void;

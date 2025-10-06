@@ -58,6 +58,8 @@ export interface GameState {
 export interface GameSettings {
   soundEnabled: boolean;
   musicEnabled: boolean;
+  soundVolume: number;
+  musicVolume: number;
   difficulty: 'easy' | 'normal' | 'hard' | 'expert';
   graphics: 'low' | 'medium' | 'high';
 }

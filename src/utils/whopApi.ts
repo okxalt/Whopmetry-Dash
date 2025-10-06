@@ -1,8 +1,8 @@
 import { WhopUser } from '../types/game';
 
 // Whop API configuration
-const WHOP_API_BASE = process.env.VITE_WHOP_API_BASE || 'https://api.whop.com/api/v2';
-const WHOP_API_KEY = process.env.VITE_WHOP_API_KEY || '';
+const WHOP_API_BASE = import.meta.env.VITE_WHOP_API_BASE || 'https://api.whop.com/api/v2';
+const WHOP_API_KEY = import.meta.env.VITE_WHOP_API_KEY || '';
 
 export interface WhopApiResponse<T> {
   data: T;
